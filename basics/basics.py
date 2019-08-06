@@ -1,5 +1,8 @@
-def mean(mylist):
-    the_mean = sum(mylist) / len(mylist)
-    return the_mean
+def weather_condition(temperature):
+    if temperature > 7:
+        return "Warm"
+    else:
+        return "Cold"
 
-print(mean([1,4,5]))
+user_input = float(input("Enter temperature: "))
+print(weather_condition(user_input))
