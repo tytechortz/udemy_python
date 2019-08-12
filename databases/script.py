@@ -1,22 +1,22 @@
-import sqlite3
+import psycopg2
 
 
 def create_table():
-    conn=sqlite3.connect("lite.db")
+    conn=psycopg2.connect("dbname='database1' user='postgres' password='1234' host='localhost' port='5432'")
     cur=conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS store (item TEXT, quantity INTEGER, price REAL)")
     conn.commit()
     conn.close()
 
 def insert(item,quantity,price):
-    conn=sqlite3.connect("lite.db")
+    conn=psycopg2.connect("dbname='database1' user='postgres' password='1234' host='localhost' port='5432'")
     cur=conn.cursor()
-    cur.execute("INSERT INTO store VALUES(?,?,?)",(item,quantity,price))
+    cur.execute("INSERT INTO store VALUES(%s,%s,%s)", (item,quantity,price))
     conn.commit()
     conn.close()
 
 def view():
-    conn=sqlite3.connect("lite.db")
+    conn=psycopg2.connect("dbname='database1' user='postgres' password='1234' host='localhost' port='5432'")
     cur=conn.cursor()
     cur.execute("SELECT * FROM store")
     rows=cur.fetchall()
@@ -24,21 +24,23 @@ def view():
     return rows
 
 def delete(item):
-    conn=sqlite3.connect("lite.db")
+    conn=psycopg2.connect("dbname='database1' user='postgres' password='1234' host='localhost' port='5432'")
     cur=conn.cursor()
-    cur.execute("DELETE FROM store WHERE item=?",(item,))
+    cur.execute("DELETE FROM store WHERE item=%s",(item,))
     conn.commit()
     conn.close()
 
 def update(quantity,price,item):
-    conn=sqlite3.connect("lite.db")
+    conn=psycopg2.connect("dbname='database1' user='postgres' password='1234' host='localhost' port='5432'")
     cur=conn.cursor()
-    cur.execute("UPDATE store SET quantity=?, price=? WHERE item=?",(quantity,price,item))
+    cur.execute("UPDATE store SET quantity=%s, price=%s WHERE item=%s",(quantity,price,item))
     conn.commit()
     conn.close()
 
+create_table()
+# insert("Apple",8,12)
 
-update(11,6,"Water Glass")
-# delete("Wine Glass")
+update(11,6,"Apple")
+# delete("Orange")
 print(view())
 # insert("Coffee Cup",10,5)
