@@ -7,12 +7,13 @@ def connect():
     conn.commit()
     conn.close()
 
-def insert(title, author, year, isbn):
+def insert(title,author,year,isbn):
     conn=sqlite3.connect("books.db")
     cur=conn.cursor()
     cur.execute("INSERT INTO book VALUES (NULL,?,?,?,?)",(title,author,year,isbn))
     conn.commit()
     conn.close()
+    view()
 
 def view():
     conn=sqlite3.connect("books.db")
@@ -33,21 +34,20 @@ def search(title="",author="",year="",isbn=""):
 def delete(id):
     conn=sqlite3.connect("books.db")
     cur=conn.cursor()
-    cur.execute("DELETE FROM book WHERE id=?" ,(id,))
+    cur.execute("DELETE FROM book WHERE id=?",(id,))
     conn.commit()
     conn.close()
 
 def update(id,title,author,year,isbn):
     conn=sqlite3.connect("books.db")
     cur=conn.cursor()
-    cur.execute("UPDATE book SET title=?, author=?, year=?, isbn=? WHERE id=?", (title,author,year,isbn,id))
+    cur.execute("UPDATE book SET title=?, author=?, year=?, isbn=? WHERE id=?",(title,author,year,isbn,id))
     conn.commit()
     conn.close()
 
-
 connect()
-update(3,"The moon", "John Smooth",1917,99999)
-# delete(2)
-# insert("The Earth", "Joe Smith",1944,994944884)
-print(view())
-# print(search(author="Joe Smith"))
+#insert("The Sun","John Smith",1918,913123132)
+#delete(3)
+#update(4,"The moon","John Smooth",1917,99999)
+#print(view())
+#print(search(author="John Smooth"))
