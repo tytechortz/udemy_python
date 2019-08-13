@@ -2,7 +2,7 @@ from bokeh.plotting import figure
 from bokeh.io import output_file, show 
 import pandas as pd 
 
-df=pd.read_csv("bachelors.csv")
+df=pd.read_csv("http://pythonhow.com/data/bachelors.csv")
 x=df['Year']
 y=df['Engineering']
 
